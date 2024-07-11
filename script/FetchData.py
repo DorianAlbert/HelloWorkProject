@@ -1,23 +1,29 @@
 import http.client
-
-####
-## function to get data by Insee code
-###
+    #Call API
 def get_data_INSEE_code(codeInsee):
     try:
         conn = http.client.HTTPSConnection("api.francetravail.io")
 
         headers = {
-            'Authorization': "Bearer n0ffcjcekOdgONiGOk42euKu3YU",
+            'Authorization': "Bearer kQlloCw8Pi12LK2doh9VBKTvBxM",
             'Accept': "application/json"
         }
 
-        conn.request("GET", "/partenaire/offresdemploi/v2/offres/search?commune="+codeInsee+"", headers=headers)
+        conn.request("GET", "/partenaire/offresdemploi/v2/offres/search?commune=" + codeInsee, headers=headers)
 
         res = conn.getresponse()
         data = res.read()
+        decoded_data = data.decode("utf-8")
 
-        return(data.decode("utf-8"))
+        if not decoded_data:
+            print(f"Aucune donnée reçue pour le code INSEE {codeInsee}")
+            return None
 
-    except ValueError:
-        print("Oops, Error to fetch data ! Please retry.")
+        return decoded_data
+
+    except ValueError as e:
+        print(f"Oops, erreur lors de la récupération des données : {e}. Veuillez réessayer.")
+        return None
+    except Exception as e:
+        print(f"Erreur inattendue : {e}")
+        return None

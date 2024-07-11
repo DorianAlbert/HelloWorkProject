@@ -3,26 +3,13 @@ version: '3.1'
 services:
   mongo:
     image: mongo
-    restart: always
+    container_name: mongo_container
     environment:
-      MONGO_INITDB_ROOT_USERNAME: HelloWorks
-      MONGO_INITDB_ROOT_PASSWORD: HelloWorks
-
-  mongo-express:
-    image: mongo-express
-    restart: always
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: HelloWorks
-      ME_CONFIG_MONGODB_ADMINPASSWORD: HelloWorks
-      ME_CONFIG_MONGODB_URL: mongodb://HelloWorks:HelloWorks@mongo:27017/
-      ME_CONFIG_BASICAUTH: "false"
-
-  python-app:
-    build: .
-    depends_on:
-      - mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=HelloWorks
-      - MONGO_INITDB_ROOT_PASSWORD=HelloWorks
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
