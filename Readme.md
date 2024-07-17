@@ -15,15 +15,11 @@
 
 ## Instructions pour démarrer le projet :
 
-**Lancer les services Docker :**`   docker compose up
+1. **Lancer les services Docker :**`
+docker-compose up --build
 `
-2. **Naviguer vers le dossier des scripts :**`cd script
-   `
-
-3. **Modifier le code d'Authorization dans le fichier `script/FetchData.py`**
-
-4. **Exécuter le script principal :**
-`   python main.py
+2. **Exécuter le script principal :**
+`   python script/main.py
 `
 
 
@@ -31,6 +27,7 @@
 
 3H15 (J'ai légèrement dépassé, malheureusement, car j'ai perdu beaucoup de temps sur l'image Docker pour MongoDB).
 
+55min pour le rajout de l'auth automatique et le contrôle lors de l'ajout dans la base
 ## Remarques :
 
 Je pense que mon code pourrait être optimisé. Cependant, je suis à l'écoute pour progresser.

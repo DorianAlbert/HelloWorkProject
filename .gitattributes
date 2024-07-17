@@ -1,0 +1,18 @@
+# Utiliser LF pour tous les fichiers de code source
+*.py text eol=lf
+*.sh text eol=lf
+
+# Utiliser CRLF pour tous les fichiers texte sur Windows
+*.txt text eol=crlf
+*.md text eol=crlf
+
+# Utiliser LF pour les fichiers de configuration XML
+*.xml text eol=lf
+
+# Fichiers binaires (pas de conversion de fin de ligne)
+*.png binary
+*.jpg binary
+*.jpeg binary
+
+# Ignorer les dossiers spécifiques de l'IDE
+.idea/* text eol=lf

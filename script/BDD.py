@@ -3,7 +3,7 @@ from prettytable import PrettyTable
 from FetchData import get_data_INSEE_code
 import json
 
-    #Connexion a la base de donnée
+# Connexion à la base de données
 def connect_to_mongo():
     try:
         client = MongoClient('mongodb://root:root@localhost:27017')
@@ -11,7 +11,8 @@ def connect_to_mongo():
     except Exception as e:
         print(f"Erreur lors de la connexion à MongoDB : {e}")
         return None
-    #Création de la base de donné ainsi que la collection
+
+# Création de la base de données ainsi que la collection
 def create_database_and_collection(client):
     db = client.HelloWork
     collection_name = "travail"
@@ -22,39 +23,52 @@ def create_database_and_collection(client):
     else:
         print(f"Collection '{collection_name}' déjà existante dans la base de données 'HelloWork'.")
 
-    #Insertion des donné fetch de FetchData.py dans la collection Travail
+# Insertion des données fetch de FetchData.py dans la collection Travail
 def store_data_in_mongo(client, data, city):
     db = client.HelloWork
     collection = db.travail
 
-    try:
-        data_json = json.loads(data)
-    except json.JSONDecodeError as e:
-        print(f"Erreur lors du décodage des données JSON pour {city} : {e}")
+    if 'resultats' not in data:
+        print(f"Aucune offre d'emploi trouvée pour la ville de {city}")
         return
 
-    if 'resultats' not in data_json:
-        print(f"Aucune offre d'emploie de trouver pour la ville de  {city}")
-        return
+    offers = data['resultats']
+    existing_offers = {offer['reference_annonce']: offer for offer in collection.find({"ville": city})}
 
-    offers = data_json['resultats']
+    # Insertion ou mise à jour des offres
     for offer in offers:
-        offer_data = {
-            "titre": offer.get("intitule", ""),
-            "description": offer.get("description", ""),
-            "url_postulation": offer.get("contact", {}).get("urlPostulation", ""),
-            "salaire": offer.get("salaire", {}).get("libelle", ""),
-            "reference_annonce": offer.get("id", ""),
-            "ville": city,
-            "type_contrat": offer.get("typeContrat", ""),
-            "entreprise_nom": offer.get("entreprise", {}).get("nom", "")
-        }
-        try:
-            collection.insert_one(offer_data)
-        except Exception as e:
-            print(f"Erreur lors de l'insertion du document pour {city} : {e}")
+        reference_annonce = offer.get("id", "")
+        if reference_annonce in existing_offers:
+            print(f"Offre déjà présente pour {city} : {reference_annonce}")
+            # Vous pouvez mettre à jour l'offre existante si nécessaire
+        else:
+            offer_data = {
+                "titre": offer.get("intitule", ""),
+                "description": offer.get("description", ""),
+                "url_postulation": offer.get("contact", {}).get("urlPostulation", ""),
+                "salaire": offer.get("salaire", {}).get("libelle", ""),
+                "reference_annonce": reference_annonce,
+                "ville": city,
+                "type_contrat": offer.get("typeContrat", ""),
+                "entreprise_nom": offer.get("entreprise", {}).get("nom", "")
+            }
+            try:
+                collection.insert_one(offer_data)
+                print(f"Document inséré pour {city} : {offer_data}")
+            except Exception as e:
+                print(f"Erreur lors de l'insertion du document pour {city} : {e}")
 
-    #Permet la récupération des données de FetchData et insert dans la base pour les 3 villes
+    # Suppression des offres qui ne sont plus présentes
+    current_references = {offer.get("id", "") for offer in offers}
+    for ref_annonce, existing_offer in existing_offers.items():
+        if ref_annonce not in current_references:
+            try:
+                collection.delete_one({"reference_annonce": ref_annonce})
+                print(f"Document supprimé pour {city} : {ref_annonce}")
+            except Exception as e:
+                print(f"Erreur lors de la suppression du document pour {city} : {e}")
+
+# Permet la récupération des données de FetchData et insert dans la base pour les 3 villes
 def search_job_offers():
     client = connect_to_mongo()
     if client:
@@ -71,7 +85,7 @@ def search_job_offers():
     print("\n=== Rechercher les offres d'emploi ===")
     print("Collecte des offres d'emploi terminée.")
 
-    #Récupération des offres stocké dans la base en fonction de la ville choisi
+# Récupération des offres stockées dans la base en fonction de la ville choisie
 def search_offers_by_city(client, city):
     db = client.HelloWork
     collection = db.travail
@@ -96,7 +110,7 @@ def search_offers_by_city(client, city):
         print(f"Erreur lors de la recherche des offres pour la ville '{city}' : {e}")
         return []
 
-    #Récupération de l'offres stocké dans la base en fonction grâce a sa référence
+# Récupération de l'offre stockée dans la base en fonction de sa référence
 def get_offer_by_reference(client, reference):
     db = client.HelloWork
     collection = db.travail
@@ -113,7 +127,8 @@ def get_offer_by_reference(client, reference):
     except Exception as e:
         print(f"Erreur lors de la recherche de l'offre pour la référence '{reference}' : {e}")
         return None
-    #Compte le nombre d'offre par ville
+
+# Compte le nombre d'offres par ville
 def count_offers_by_city(client):
     db = client.HelloWork
     collection = db.travail
@@ -130,7 +145,7 @@ def count_offers_by_city(client):
         print(f"Erreur lors du comptage des offres par ville : {e}")
         return {}
 
-    # Nouvelle fonction pour compter le nombre d'entreprises récupérées
+# Compte le nombre d'entreprises récupérées
 def count_companies(client):
     db = client.HelloWork
     collection = db.travail
@@ -142,7 +157,7 @@ def count_companies(client):
         print(f"Erreur lors du comptage des entreprises : {e}")
         return 0
 
-    # Nouvelle fonction pour la répartition par type de contrat
+# Répartition par type de contrat
 def contract_distribution(client):
     db = client.HelloWork
     collection = db.travail
@@ -176,5 +191,3 @@ def show_statistics(client):
         choice = input("Veuillez sélectionner une option: ")
         if choice == '0':
             break
-
-

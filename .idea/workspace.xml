@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faaf7e18-cc90-4c42-83ea-7502f3050103" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/script/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/script/authTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script/BDD.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/BDD.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script/FetchData.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/FetchData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/test_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/test_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/test.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -44,6 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "interface",
@@ -86,6 +91,7 @@
       <workItem from="1720638818067" duration="4502000" />
       <workItem from="1720691788950" duration="2284000" />
       <workItem from="1720696709092" duration="18288000" />
+      <workItem from="1721209384663" duration="13578000" />
     </task>
     <servers />
   </component>
