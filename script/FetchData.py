@@ -34,11 +34,3 @@ def get_data_INSEE_code(codeInsee):
     except Exception as e:
         print(f"Erreur inattendue : {e}")
         return None
-
-if __name__ == "__main__":
-    codeInsee = "33063"  # Exemple pour Bordeaux
-    data = get_data_INSEE_code(codeInsee)
-    if data:
-        print(json.dumps(data, indent=4, ensure_ascii=False))
-    else:
-        print("Pas de données récupérées.")
