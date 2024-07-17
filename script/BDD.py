@@ -72,7 +72,7 @@ def store_data_in_mongo(client, data, city):
 def search_job_offers():
     client = connect_to_mongo()
     if client:
-        insee_codes = {"Bordeaux": "33063", "Paris": "75056", "Rennes": "35238"}
+        insee_codes = {"Bordeaux": "33063", "Paris": "75116", "Rennes": "35238"}
 
         for city, code in insee_codes.items():
             print(f"Récupération des données pour {city} (INSEE: {code})")
